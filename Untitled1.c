@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
 
     int min=0, max=0, size=0;
     Pos Even=NULL, Odd=NULL;
+
     Even=Node();
     Odd=Node();
     if(MemoryCheck(Even) || MemoryCheck(Odd));
@@ -40,6 +41,7 @@ int main(int argc, char* argv[])
         Generator(min, max, Even, Odd, size);
 
         printf("\nSorted lists:\n");
+
         printf("\nEven: ");
 
         PrintSc(Even);
@@ -52,8 +54,6 @@ int main(int argc, char* argv[])
     }
     return 0;
 }
-
-
 
 
 Pos Node()
@@ -115,12 +115,11 @@ void Place (int x, Pos P)
     {
         while(q->next!=NULL && x<q->next->n)
             q=q->next;
-        if(q->next==NULL)
+        if(q->next==NULL || x!=q->next->n)
             Put(x, q);
-        else if(x!=q->next->n)
-            Put(x, q);
+       else if(x==q->next->n)
+            P->br--;
     }
-
 }
 
 void PrintSc(Pos P)
