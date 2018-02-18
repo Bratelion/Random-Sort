@@ -1,6 +1,6 @@
-# Random-Sort
+# Random-Sort (Fully operational!)
 # Version 1.1
-Generate random integer number and place into odd/even list max -> min
+Generate random integer number and place into odd/even lists max -> min
 
   now you can set random range
   
