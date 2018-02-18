@@ -23,25 +23,25 @@ void PrintSc(Pos P);
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
-    Pos Parni, Neparni;
-    Parni=Node();
-    Parni->br=0;
-    Neparni=Node();
-    Neparni->br=0;
-    printf("Generirani brojevi:\n");
+    Pos Even, Odd;
+    Even=Node();
+    Even->br=0;
+    Odd=Node();
+    Odd->br=0;
+    printf("Generated numbers:\n");
 
-    Generator(Parni, Neparni);
+    Generator(Even, Odd);
 
-    printf("\nPopunjene liste su:\n");
-    printf("\nParni: ");
+    printf("\nSorted lists:\n");
+    printf("\nEven: ");
 
-    PrintSc(Parni);
+    PrintSc(Even);
 
-    printf("\nNeparni: ");
+    printf("\nOdd: ");
 
-    PrintSc(Neparni);
+    PrintSc(Odd);
 
-    printf("\nKraj listi!\n");
+    printf("\nEnd of lists!\n");
     return 0;
 }
 
@@ -98,7 +98,7 @@ void Place (int x, Pos P)
     while(q->next!=NULL && x<q->next->n)
         q=q->next;
     if(x==q->next->n)
-        printf("\nVeæ postoji element u listi!\n");
+        printf("\nElement exists in list!\n");
     else
         Put(x, q);
 }
