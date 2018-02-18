@@ -14,23 +14,26 @@ typedef struct Seperate {
 
 Pos Node();
 void Put(int x, Pos P);
-void Generator();
-void Choice (int a, Pos A, Pos B);
+void Generator(int min, int max, Pos A, Pos B, int size);
+void Choice(int x, Pos A, Pos B, int size);
 void Place (int x, Pos P);
 void PrintSc(Pos P);
-
+void Range_Size(int* x, int* y, int* z);
 
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
+
+    int min=0, max=0, size=0;
     Pos Even, Odd;
     Even=Node();
     Even->br=0;
     Odd=Node();
     Odd->br=0;
+    Range_Size(&min, &max, &size);
     printf("Generated numbers:\n");
 
-    Generator(Even, Odd);
+    Generator(min, max, Even, Odd, size);
 
     printf("\nSorted lists:\n");
     printf("\nEven: ");
@@ -68,23 +71,23 @@ void Put(int x, Pos P)
     P->next=q;
 }
 
-void Generator(Pos A, Pos B)
+void Generator(int min, int max, Pos A, Pos B, int size)
 {
     int x;
-    x=50 + (rand()%31);
+    x=min + (rand()%(max-min+1));
     printf("%d\n", x);
-    while(A->br<1 || B->br<1)
-        Choice(x, A, B);
+    while(A->br<size || B->br<size)
+        Choice(x, A, B, size);
 }
 
-void Choice(int x, Pos A, Pos B)
+void Choice(int x, Pos A, Pos B, int size)
 {
-    if(x%2==0 && A->br<10)
+    if(x%2==0 && A->br<size)
     {
         A->br++;
         Place(x, A);
     }
-    else if(x%2!=0 && B->br<10)
+    else if(x%2!=0 && B->br<size)
     {
         B->br++;
         Place(x, B);
@@ -110,4 +113,14 @@ void PrintSc(Pos P)
         P=P->next;
         printf("%d ", P->n);
     }
+}
+
+void Range_Size(int* x, int* y, int* z)
+{
+    printf("Set the range of randomly generated numbers:\n");
+    scanf(" %d %d", &(*x), &(*y));
+    printf("Set the list size:\n");
+    scanf(" %d", &(*z));
+    printf("Range set to %d - %d!\n", *x, *y);
+    printf("List sizes set to %d!\n", *z);
 }
