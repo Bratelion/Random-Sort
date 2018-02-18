@@ -3,7 +3,6 @@
 Generate random integer number and place into odd/even lists
 
   you can choose the order of listed numbers: ascending, descending, as generated
-# Version 1.0
 # Version 1.1
 Generate random integer number and place into odd/even lists max -> min
 
