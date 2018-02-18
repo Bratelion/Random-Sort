@@ -15,18 +15,18 @@ typedef struct Seperate {
 
 Pos Node();
 void Put(int x, Pos P);
-void Generator(int min, int max, Pos A, Pos B, int size);
-void Choice(int x, Pos A, Pos B, int size);
-void Place (int x, Pos P);
+void Generator(int min, int max, Pos A, Pos B, int size, int ch);
+void Choice(int x, Pos A, Pos B, int size, int ch);
+void Place (int x, Pos P, int ch);
 void PrintSc(Pos P);
-void Range_Size(int* x, int* y, int* z);
+void Range_Size(int* min, int* max, int* size, int* ch);
 bool MemoryCheck(Pos P);
 
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
 
-    int min=0, max=0, size=0;
+    int min=0, max=0, size=0, ch=5;
     Pos Even=NULL, Odd=NULL;
 
     Even=Node();
@@ -35,10 +35,10 @@ int main(int argc, char* argv[])
 
     else
     {
-        Range_Size(&min, &max, &size);
+        Range_Size(&min, &max, &size, &ch);
         printf("Generated numbers:\n");
 
-        Generator(min, max, Even, Odd, size);
+        Generator(min, max, Even, Odd, size, ch);
 
         printf("\nSorted lists:\n");
 
@@ -82,42 +82,52 @@ void Put(int x, Pos P)
     }
 }
 
-void Generator(int min, int max, Pos A, Pos B, int size)
+void Generator(int min, int max, Pos A, Pos B, int size, int ch)
 {
     int x;
     while(A->br<size || B->br<size)
     {
         x=min + (rand()%(max-min+1));
         printf("%d\n", x);
-        Choice(x, A, B, size);
+        Choice(x, A, B, size, ch);
     }
 }
 
-void Choice(int x, Pos A, Pos B, int size)
+void Choice(int x, Pos A, Pos B, int size, int ch)
 {
     if(x%2==0 && A->br<size)
     {
         A->br++;
-        Place(x, A);
+        Place(x, A, ch);
     }
     else if(x%2!=0 && B->br<size)
     {
         B->br++;
-        Place(x, B);
+        Place(x, B, ch);
     }
 }
 
-void Place (int x, Pos P)
+void Place (int x, Pos P, int ch)
 {
     Pos q=P;
     if(MemoryCheck(q));
     else
     {
-        while(q->next!=NULL && x<q->next->n)
-            q=q->next;
+        switch (ch)
+        {
+            case 0: while(q->next!=NULL && x>q->next->n)
+                        q=q->next;
+                    break;
+            case 1: while(q->next!=NULL && x<q->next->n)
+                        q=q->next;
+                    break;
+            case 2: while(q->next!=NULL && x!=q->next->n)
+                        q=q->next;
+                    break;
+        }
         if(q->next==NULL || x!=q->next->n)
             Put(x, q);
-       else if(x==q->next->n)
+        else if(x==q->next->n)
             P->br--;
     }
 }
@@ -131,22 +141,35 @@ void PrintSc(Pos P)
     }
 }
 
-void Range_Size(int* x, int* y, int* z)
+void Range_Size(int* min, int* max, int* size, int* ch)
 {
     int i=0;
     while(i==0)
     {
         printf("Set the range of randomly generated numbers:\n");
-        scanf(" %d %d", &(*x), &(*y));
+        scanf(" %d %d", &(*min), &(*max));
         printf("Set the list size:\n");
-        scanf(" %d", &(*z));
-        if((2*(*z)-1)<=(*y-*x))
+        scanf(" %d", &(*size));
+        if((2*(*size)-1)<=(*max-*min))
             i++;
         else
             printf("\nRange not big enough for chosen list size!\n\n");
     }
-    printf("Range set to %d - %d!\n", *x, *y);
-    printf("List sizes set to %d!\n", *z);
+    while(*ch<=-1 || *ch>=3)
+    {
+        printf("Choose: 0) Ascending order\n");
+        printf("        1) Descending order\n");
+        printf("        2) As the generator makes\n\n");
+        scanf(" %d", &(*ch));
+    }
+    printf("Range set to %d - %d!\n", *min, *max);
+    printf("List sizes set to %d!\n", *size);
+    if(*ch==0)
+        printf("Numbers are listed in ASCENDING ORDER!\n");
+    if(*ch==1)
+        printf("Numbers are listed in DESCENDING ORDER!\n");
+    if(*ch==2)
+        printf("Numbers are listed in GENERATED ORDER!\n");
 }
 
 bool MemoryCheck(Pos P)
