@@ -100,11 +100,12 @@ void Place (int x, Pos P)
 {
     Pos q=P;
     if(q==NULL) printf("\n***** Place:: Sent Nonexistent List!! *****\n");
-    if(q->next==NULL)
-        Put(x, q);
+
     while(q->next!=NULL && x<q->next->n)
         q=q->next;
-    if(x!=q->next->n)
+    if(q->next==NULL)
+        Put(x, q);
+    else if(x!=q->next->n)
         Put(x, q);
 }
 
