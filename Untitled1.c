@@ -25,26 +25,30 @@ int main(int argc, char* argv[])
     srand(time(NULL));
 
     int min=0, max=0, size=0;
-    Pos Even, Odd;
+    Pos Even=NULL, Odd=NULL;
     Even=Node();
-    Even->br=0;
     Odd=Node();
-    Odd->br=0;
-    Range_Size(&min, &max, &size);
-    printf("Generated numbers:\n");
+    if(Even==NULL || Odd==NULL)
+        printf("\n***** Main:: No memory for lists! *****\n");
 
-    Generator(min, max, Even, Odd, size);
+    else
+    {
+        Range_Size(&min, &max, &size);
+        printf("Generated numbers:\n");
 
-    printf("\nSorted lists:\n");
-    printf("\nEven: ");
+        Generator(min, max, Even, Odd, size);
 
-    PrintSc(Even);
+        printf("\nSorted lists:\n");
+        printf("\nEven: ");
 
-    printf("\nOdd: ");
+        PrintSc(Even);
 
-    PrintSc(Odd);
+        printf("\nOdd: ");
 
-    printf("\nEnd of lists!\n");
+        PrintSc(Odd);
+
+        printf("\nEnd of lists!\n");
+    }
     return 0;
 }
 
@@ -55,10 +59,14 @@ Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
-    if(q==NULL) return -1;
-    q->n=NULL;
-    q->next=NULL;
-    q->br=NULL;
+    if(q==NULL)
+        printf("\n***** Node:: No memory! *****\n");
+    else
+    {
+        q->n=0;
+        q->next=NULL;
+        q->br=0;
+    }
     return q;
 }
 
