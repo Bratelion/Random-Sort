@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 
 struct Seperate;
@@ -19,6 +20,7 @@ void Choice(int x, Pos A, Pos B, int size);
 void Place (int x, Pos P);
 void PrintSc(Pos P);
 void Range_Size(int* x, int* y, int* z);
+bool MemoryCheck(Pos P);
 
 int main(int argc, char* argv[])
 {
@@ -28,8 +30,7 @@ int main(int argc, char* argv[])
     Pos Even=NULL, Odd=NULL;
     Even=Node();
     Odd=Node();
-    if(Even==NULL || Odd==NULL)
-        printf("\n***** Main:: No memory for lists! *****\n");
+    if(MemoryCheck(Even) || MemoryCheck(Odd));
 
     else
     {
@@ -59,8 +60,7 @@ Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
-    if(q==NULL)
-        printf("\n***** Node:: No memory! *****\n");
+    if(MemoryCheck(q));
     else
     {
         q->n=0;
@@ -73,10 +73,13 @@ Pos Node()
 void Put(int x, Pos P)
 {
     Pos q=Node();
-    if(q==NULL) printf("\n***** Put:: No memory! *****\n");
-    q->n=x;
-    q->next=P->next;
-    P->next=q;
+    if(MemoryCheck(q));
+    else
+    {
+        q->n=x;
+        q->next=P->next;
+        P->next=q;
+    }
 }
 
 void Generator(int min, int max, Pos A, Pos B, int size)
@@ -107,14 +110,17 @@ void Choice(int x, Pos A, Pos B, int size)
 void Place (int x, Pos P)
 {
     Pos q=P;
-    if(q==NULL) printf("\n***** Place:: Sent Nonexistent List!! *****\n");
+    if(MemoryCheck(q));
+    else
+    {
+        while(q->next!=NULL && x<q->next->n)
+            q=q->next;
+        if(q->next==NULL)
+            Put(x, q);
+        else if(x!=q->next->n)
+            Put(x, q);
+    }
 
-    while(q->next!=NULL && x<q->next->n)
-        q=q->next;
-    if(q->next==NULL)
-        Put(x, q);
-    else if(x!=q->next->n)
-        Put(x, q);
 }
 
 void PrintSc(Pos P)
@@ -142,4 +148,15 @@ void Range_Size(int* x, int* y, int* z)
     }
     printf("Range set to %d - %d!\n", *x, *y);
     printf("List sizes set to %d!\n", *z);
+}
+
+bool MemoryCheck(Pos P)
+{
+    if(P==NULL)
+    {
+        printf("\n***** Allocated memory not found! *****\n");
+        return 1;
+    }
+    else
+        return 0;
 }
