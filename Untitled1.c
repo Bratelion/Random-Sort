@@ -74,10 +74,12 @@ void Put(int x, Pos P)
 void Generator(int min, int max, Pos A, Pos B, int size)
 {
     int x;
-    x=min + (rand()%(max-min+1));
-    printf("%d\n", x);
     while(A->br<size || B->br<size)
+    {
+        x=min + (rand()%(max-min+1));
+        printf("%d\n", x);
         Choice(x, A, B, size);
+    }
 }
 
 void Choice(int x, Pos A, Pos B, int size)
@@ -98,11 +100,11 @@ void Place (int x, Pos P)
 {
     Pos q=P;
     if(q==NULL) printf("\n***** Place:: Sent Nonexistent List!! *****\n");
+    if(q->next==NULL)
+        Put(x, q);
     while(q->next!=NULL && x<q->next->n)
         q=q->next;
-    if(x==q->next->n)
-        printf("\nElement exists in list!\n");
-    else
+    if(x!=q->next->n)
         Put(x, q);
 }
 
