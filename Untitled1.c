@@ -120,10 +120,18 @@ void PrintSc(Pos P)
 
 void Range_Size(int* x, int* y, int* z)
 {
-    printf("Set the range of randomly generated numbers:\n");
-    scanf(" %d %d", &(*x), &(*y));
-    printf("Set the list size:\n");
-    scanf(" %d", &(*z));
+    int i=0;
+    while(i==0)
+    {
+        printf("Set the range of randomly generated numbers:\n");
+        scanf(" %d %d", &(*x), &(*y));
+        printf("Set the list size:\n");
+        scanf(" %d", &(*z));
+        if((2*(*z)-1)<=(*y-*x))
+            i++;
+        else
+            printf("\nRange not big enough for chosen list size!\n\n");
+    }
     printf("Range set to %d - %d!\n", *x, *y);
     printf("List sizes set to %d!\n", *z);
 }
