@@ -10,7 +10,7 @@ typedef struct Seperate *Pos;
 typedef struct Seperate {
     int n;
     Pos next;
-    int br;
+    int cnt;
 }_sep;
 
 Pos Node();
@@ -24,8 +24,6 @@ bool MemoryCheck(Pos P);
 
 int main(int argc, char* argv[])
 {
-    srand(time(NULL));
-
     Pos Even=NULL, Odd=NULL;
     Even=Node();
     Odd=Node();
@@ -58,7 +56,7 @@ Pos Node()
     {
         q->n=0;
         q->next=NULL;
-        q->br=0;
+        q->cnt=0;
     }
     return q;
 }
@@ -77,11 +75,12 @@ void Put(int x, Pos P)
 
 void Generator(Pos A, Pos B)
 {
+    srand(time(NULL));
     int x;
     int min=0, max=0, size=0, ch=5;
     Range_Size(&min, &max, &size, &ch);
     printf("Generated numbers:\n");
-    while(A->br<size || B->br<size)
+    while(A->cnt<size || B->cnt<size)
     {
         x=min + (rand()%(max-min+1));
         printf("%d\n", x);
@@ -91,14 +90,14 @@ void Generator(Pos A, Pos B)
 
 void Choice(int x, Pos A, Pos B, int size, int ch)
 {
-    if(x%2==0 && A->br<size)
+    if(x%2==0 && A->cnt<size)
     {
-        A->br++;
+        A->cnt++;
         Place(x, A, ch);
     }
-    else if(x%2!=0 && B->br<size)
+    else if(x%2!=0 && B->cnt<size)
     {
-        B->br++;
+        B->cnt++;
         Place(x, B, ch);
     }
 }
@@ -124,7 +123,7 @@ void Place (int x, Pos P, int ch)
         if(q->next==NULL || x!=q->next->n)
             Put(x, q);
         else if(x==q->next->n)
-            P->br--;
+            P->cnt--;
     }
 }
 
