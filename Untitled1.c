@@ -15,7 +15,7 @@ typedef struct Seperate {
 
 Pos Node();
 void Put(int x, Pos P);
-void Generator(int min, int max, Pos A, Pos B, int size, int ch);
+void Generator(Pos A, Pos B);
 void Choice(int x, Pos A, Pos B, int size, int ch);
 void Place (int x, Pos P, int ch);
 void PrintSc(Pos P);
@@ -26,28 +26,21 @@ int main(int argc, char* argv[])
 {
     srand(time(NULL));
 
-    int min=0, max=0, size=0, ch=5;
     Pos Even=NULL, Odd=NULL;
-
     Even=Node();
     Odd=Node();
     if(MemoryCheck(Even) || MemoryCheck(Odd));
 
     else
     {
-        Range_Size(&min, &max, &size, &ch);
-        printf("Generated numbers:\n");
-
-        Generator(min, max, Even, Odd, size, ch);
+        Generator(Even, Odd);
 
         printf("\nSorted lists:\n");
 
         printf("\nEven: ");
-
         PrintSc(Even);
 
         printf("\nOdd: ");
-
         PrintSc(Odd);
 
         printf("\nEnd of lists!\n");
@@ -82,9 +75,12 @@ void Put(int x, Pos P)
     }
 }
 
-void Generator(int min, int max, Pos A, Pos B, int size, int ch)
+void Generator(Pos A, Pos B)
 {
     int x;
+    int min=0, max=0, size=0, ch=5;
+    Range_Size(&min, &max, &size, &ch);
+    printf("Generated numbers:\n");
     while(A->br<size || B->br<size)
     {
         x=min + (rand()%(max-min+1));
