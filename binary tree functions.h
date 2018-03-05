@@ -15,6 +15,7 @@ bool MemoryTree(Side T);
 Side Insert(int x, Side T);
 void PrintTree_L2H(Side T);
 Side ListToTree(Pos L, Side T);
+int Max(int a, int b);
 
 Side Leaf()
 {
@@ -57,13 +58,31 @@ Side Insert(int x, Side T)
         }
         else if(x<T->n)
         {
-            T->lvl++;
             T->left=Insert(x, T->left);
+            if(T->right!=NULL && T->left!=NULL)
+            {
+                T->left->lvl=Max(T->right->lvl, T->left->lvl);
+                T->right->lvl=T->left->lvl;
+                T->lvl=Max(T->right->lvl, T->left->lvl)+1;
+            } 
+            else if(T->right!=NULL)
+                T->lvl=T->right->lvl +1;
+            else
+                T->lvl=T->left->lvl +1;
         }
         else if(x>T->n)
         {
-            T->lvl++;
             T->right=Insert(x, T->right);
+            if(T->right!=NULL && T->left!=NULL)
+            {
+                T->left->lvl=Max(T->right->lvl, T->left->lvl);
+                T->right->lvl=T->left->lvl;
+                T->lvl=Max(T->right->lvl, T->left->lvl)+1;
+            }
+            else if(T->right!=NULL)
+                T->lvl=T->right->lvl +1;
+            else
+                T->lvl=T->left->lvl +1;
         }
         else T->n=x;
     return T;
@@ -90,4 +109,10 @@ Side ListToTree(Pos L, Side T)
         }
     }
     return T;
+}
+
+int Max(int a, int b)
+{
+    if(a<b) return b;
+    else return a;
 }
