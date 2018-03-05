@@ -1,6 +1,5 @@
 #include "binary tree functions.h"
 
-
 int main(int argc, char* argv[])
 {
     Pos Even=NULL, Odd=NULL;
@@ -35,6 +34,13 @@ int main(int argc, char* argv[])
 
             printf("\nEnd of trees!\n");
         }
+
+        PrintSc(Even);
+
+        printf("\nOdd: ");
+        PrintSc(Odd);
+
+        printf("\nEnd of lists!\n");
     }
     return 0;
 }

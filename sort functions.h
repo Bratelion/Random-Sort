@@ -21,12 +21,12 @@ void PrintList(Pos P);
 void Range_Size(int* min, int* max, int* size, int* ch);
 bool MemoryList(Pos P);
 
-
 Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
     if(MemoryList(q));
+
     else
     {
         q->n=0;
@@ -40,6 +40,7 @@ void Put(int x, Pos P)
 {
     Pos q=Node();
     if(MemoryList(q));
+
     else
     {
         q->n=x;
