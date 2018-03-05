@@ -1,4 +1,6 @@
 # Random-Sort (Fully operational!)
+# Version 1.3
+Made lists are turned into binary trees and printed out min -> max and leveled
 # Version 1.2
 Generate random integer number and place into odd/even lists
 
