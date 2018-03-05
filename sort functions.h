@@ -17,16 +17,16 @@ void Put(int x, Pos P);
 void Generator(Pos A, Pos B);
 void Choice(int x, Pos A, Pos B, int size, int ch);
 void Place (int x, Pos P, int ch);
-void PrintSc(Pos P);
+void PrintList(Pos P);
 void Range_Size(int* min, int* max, int* size, int* ch);
-bool MemoryPos(Pos P);
-
+bool MemoryList(Pos P);
 
 Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
-    if(MemoryPos(q));
+    if(MemoryList(q));
+
     else
     {
         q->n=0;
@@ -39,7 +39,8 @@ Pos Node()
 void Put(int x, Pos P)
 {
     Pos q=Node();
-    if(MemoryPos(q));
+    if(MemoryList(q));
+
     else
     {
         q->n=x;
@@ -80,7 +81,7 @@ void Choice(int x, Pos A, Pos B, int size, int ch)
 void Place (int x, Pos P, int ch)
 {
     Pos q=P;
-    if(MemoryPos(q));
+    if(MemoryList(q));
     else
     {
         switch (ch)
@@ -102,7 +103,7 @@ void Place (int x, Pos P, int ch)
     }
 }
 
-void PrintSc(Pos P)
+void PrintList(Pos P)
 {
     while(P->next!=NULL)
     {
@@ -142,7 +143,7 @@ void Range_Size(int* min, int* max, int* size, int* ch)
         printf("Numbers are listed in GENERATED ORDER!\n");
 }
 
-bool MemoryPos(Pos P)
+bool MemoryList(Pos P)
 {
     if(P==NULL)
     {
