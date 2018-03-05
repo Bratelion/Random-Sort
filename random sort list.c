@@ -11,8 +11,8 @@ int main(int argc, char* argv[])
     else
     {
         Generator(Even, Odd);
-        ListToTree(Even, T_even);
-        ListToTree(Odd, T_odd);
+        T_even = ListToTree(Even, T_even);
+        T_odd = ListToTree(Odd, T_odd);
 
         printf("\nSorted lists:\n");
 
