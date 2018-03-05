@@ -3,7 +3,6 @@
 #include <time.h>
 #include <stdbool.h>
 
-
 struct Seperate;
 typedef struct Seperate *Pos;
 
@@ -18,40 +17,16 @@ void Put(int x, Pos P);
 void Generator(Pos A, Pos B);
 void Choice(int x, Pos A, Pos B, int size, int ch);
 void Place (int x, Pos P, int ch);
-void PrintSc(Pos P);
+void PrintList(Pos P);
 void Range_Size(int* min, int* max, int* size, int* ch);
-bool MemoryCheck(Pos P);
-
-int main(int argc, char* argv[])
-{
-    Pos Even=NULL, Odd=NULL;
-    Even=Node();
-    Odd=Node();
-    if(MemoryCheck(Even) || MemoryCheck(Odd));
-
-    else
-    {
-        Generator(Even, Odd);
-
-        printf("\nSorted lists:\n");
-
-        printf("\nEven: ");
-        PrintSc(Even);
-
-        printf("\nOdd: ");
-        PrintSc(Odd);
-
-        printf("\nEnd of lists!\n");
-    }
-    return 0;
-}
-
+bool MemoryList(Pos P);
 
 Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
-    if(MemoryCheck(q));
+    if(MemoryList(q));
+
     else
     {
         q->n=0;
@@ -64,7 +39,8 @@ Pos Node()
 void Put(int x, Pos P)
 {
     Pos q=Node();
-    if(MemoryCheck(q));
+    if(MemoryList(q));
+
     else
     {
         q->n=x;
@@ -105,7 +81,7 @@ void Choice(int x, Pos A, Pos B, int size, int ch)
 void Place (int x, Pos P, int ch)
 {
     Pos q=P;
-    if(MemoryCheck(q));
+    if(MemoryList(q));
     else
     {
         switch (ch)
@@ -127,7 +103,7 @@ void Place (int x, Pos P, int ch)
     }
 }
 
-void PrintSc(Pos P)
+void PrintList(Pos P)
 {
     while(P->next!=NULL)
     {
@@ -167,7 +143,7 @@ void Range_Size(int* min, int* max, int* size, int* ch)
         printf("Numbers are listed in GENERATED ORDER!\n");
 }
 
-bool MemoryCheck(Pos P)
+bool MemoryList(Pos P)
 {
     if(P==NULL)
     {
