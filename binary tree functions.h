@@ -13,9 +13,10 @@ typedef struct Tree {
 Side Leaf();
 bool MemoryTree(Side T);
 Side Insert(int x, Side T);
-void PrintTree_L2H(Side T);
+void PrintTree_L2H(Side T, Pos A);
 Side ListToTree(Pos L, Side T);
 int Max(int a, int b);
+void LeveledTreeList(int x, int lvl, Pos A);
 
 Side Leaf()
 {
@@ -46,55 +47,62 @@ bool MemoryTree(Side T)
 Side Insert(int x, Side T)
 {
     Side q=NULL;
-        if(T==NULL)
+    if(T==NULL)
+    {
+        q=Leaf();
+        if(MemoryTree(q));
+        else
         {
-            q=Leaf();
-            if(MemoryTree(q));
-            else
-            {
-                q->n=x;
-                T=q;
-            }
+            q->n=x;
+            T=q;
         }
-        else if(x<T->n)
+    }
+    else if(x<T->n)
+    {
+        T->left=Insert(x, T->left);
+        if(T->right!=NULL && T->left!=NULL)
         {
-            T->left=Insert(x, T->left);
-            if(T->right!=NULL && T->left!=NULL)
-            {
-                T->left->lvl=Max(T->right->lvl, T->left->lvl);
-                T->right->lvl=T->left->lvl;
-                T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-            } 
-            else if(T->right!=NULL)
-                T->lvl=T->right->lvl +1;
-            else
-                T->lvl=T->left->lvl +1;
+            T->right->lvl=T->left->lvl=Max(T->right->lvl, T->left->lvl);
+            T->lvl=Max(T->right->lvl, T->left->lvl)+1;
+            if(T->left->lvl==1)
+                T->left->lvl=T->lvl--;
+            else if(T->right->lvl==1)
+                T->right->lvl=T->lvl--;
         }
-        else if(x>T->n)
+        else if(T->right!=NULL)
+            T->lvl=T->right->lvl +1;
+        else if(T->left!=NULL)
+            T->lvl=T->left->lvl +1;
+    }
+    else if(x>T->n)
+    {
+        T->right=Insert(x, T->right);
+        if(T->right!=NULL && T->left!=NULL)
         {
-            T->right=Insert(x, T->right);
-            if(T->right!=NULL && T->left!=NULL)
-            {
-                T->left->lvl=Max(T->right->lvl, T->left->lvl);
-                T->right->lvl=T->left->lvl;
-                T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-            }
-            else if(T->right!=NULL)
-                T->lvl=T->right->lvl +1;
-            else
-                T->lvl=T->left->lvl +1;
+            T->left->lvl=T->right->lvl=Max(T->right->lvl, T->left->lvl);
+            T->lvl=Max(T->right->lvl, T->left->lvl)+1;
+            if(T->left->lvl==1)
+                T->left->lvl=T->lvl--;
+            else if(T->right->lvl==1)
+                T->right->lvl=T->lvl--;
         }
-        else T->n=x;
+        else if(T->right!=NULL)
+            T->lvl=T->right->lvl +1;
+        else if(T->left!=NULL)
+            T->lvl=T->left->lvl +1;
+    }
+    else T->n=x;
     return T;
 }
 
-void PrintTree_L2H(Side T)
+void PrintTree_L2H(Side T, Pos A)
 {
     if(T->left!=NULL)
-        PrintTree_L2H(T->left);
+        PrintTree_L2H(T->left, A);
     printf("lvl %d. %d\n", T->lvl, T->n);
+    LeveledTreeList(T->n, T->lvl, A);
     if(T->right!=NULL)
-        PrintTree_L2H(T->right);
+        PrintTree_L2H(T->right, A);
 }
 
 Side ListToTree(Pos L, Side T)
@@ -115,4 +123,16 @@ int Max(int a, int b)
 {
     if(a<b) return b;
     else return a;
+}
+
+void LeveledTreeList(int x, int lvl, Pos A)
+{
+    Pos q=A;
+    if(MemoryList(q));
+    else
+    {
+        while(q->next!=NULL && lvl<=q->next->cnt)
+            q=q->next;
+        Put(x, q, lvl);
+    }
 }
