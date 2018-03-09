@@ -64,10 +64,6 @@ Side Insert(int x, Side T)
         {
             T->right->lvl=T->left->lvl=Max(T->right->lvl, T->left->lvl);
             T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-            if(T->left->lvl==1)
-                T->left->lvl=T->lvl--;
-            else if(T->right->lvl==1)
-                T->right->lvl=T->lvl--;
         }
         else if(T->right!=NULL)
             T->lvl=T->right->lvl +1;
@@ -81,10 +77,6 @@ Side Insert(int x, Side T)
         {
             T->left->lvl=T->right->lvl=Max(T->right->lvl, T->left->lvl);
             T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-            if(T->left->lvl==1)
-                T->left->lvl=T->lvl--;
-            else if(T->right->lvl==1)
-                T->right->lvl=T->lvl--;
         }
         else if(T->right!=NULL)
             T->lvl=T->right->lvl +1;
