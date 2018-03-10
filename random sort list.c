@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
             printf("\nSorted by levels: ");
             PrintList(S_even);
 
-            printf("\nOdd tree:\n");
+            printf("\n\nOdd tree:\n");
             PrintTree_L2H(T_odd, S_odd);
             printf("\nSorted by levels: ");
             PrintList(S_odd);

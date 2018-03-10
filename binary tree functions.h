@@ -15,7 +15,6 @@ bool MemoryTree(Side T);
 Side Insert(int x, Side T);
 void PrintTree_L2H(Side T, Pos A);
 Side ListToTree(Pos L, Side T);
-int Max(int a, int b);
 void LeveledTreeList(int x, int lvl, Pos A);
 
 Side Leaf()
@@ -60,30 +59,17 @@ Side Insert(int x, Side T)
     else if(x<T->n)
     {
         T->left=Insert(x, T->left);
-        if(T->right!=NULL && T->left!=NULL)
-        {
-            T->right->lvl=T->left->lvl=Max(T->right->lvl, T->left->lvl);
-            T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-        }
-        else if(T->right!=NULL)
-            T->lvl=T->right->lvl +1;
-        else if(T->left!=NULL)
-            T->lvl=T->left->lvl +1;
+        if(T->left->lvl==1)
+            T->left->lvl=T->lvl +1;
     }
     else if(x>T->n)
     {
         T->right=Insert(x, T->right);
-        if(T->right!=NULL && T->left!=NULL)
-        {
-            T->left->lvl=T->right->lvl=Max(T->right->lvl, T->left->lvl);
-            T->lvl=Max(T->right->lvl, T->left->lvl)+1;
-        }
-        else if(T->right!=NULL)
-            T->lvl=T->right->lvl +1;
-        else if(T->left!=NULL)
-            T->lvl=T->left->lvl +1;
+        if(T->right->lvl==1)
+            T->right->lvl=T->lvl +1;
     }
     else T->n=x;
+
     return T;
 }
 
@@ -111,19 +97,13 @@ Side ListToTree(Pos L, Side T)
     return T;
 }
 
-int Max(int a, int b)
-{
-    if(a<b) return b;
-    else return a;
-}
-
 void LeveledTreeList(int x, int lvl, Pos A)
 {
     Pos q=A;
     if(MemoryList(q));
     else
     {
-        while(q->next!=NULL && lvl<=q->next->cnt)
+        while(q->next!=NULL && lvl>=q->next->cnt)
             q=q->next;
         Put(x, q, lvl);
     }
