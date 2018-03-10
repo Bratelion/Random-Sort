@@ -1,6 +1,6 @@
 # Random-Sort (Fully operational!)
 # Version 1.3
-Made lists are turned into binary trees and printed out min -> max and leveled
+Made lists are turned into binary trees and printed out min -> max and *leveled (not working properly)*
 
  ++USE: Sort functions.h, Binary Tree Functions.h, Random sort list.c
  
