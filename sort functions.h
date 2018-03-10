@@ -13,7 +13,7 @@ typedef struct Seperate {
 }_sep;
 
 Pos Node();
-void Put(int x, Pos P);
+void Put(int x, Pos P, int lvl);
 void Generator(Pos A, Pos B);
 void Choice(int x, Pos A, Pos B, int size, int ch);
 void Place (int x, Pos P, int ch);
@@ -21,12 +21,12 @@ void PrintList(Pos P);
 void Range_Size(int* min, int* max, int* size, int* ch);
 bool MemoryList(Pos P);
 
+
 Pos Node()
 {
     Pos q = NULL;
     q =(Pos) malloc (sizeof(_sep));
     if(MemoryList(q));
-
     else
     {
         q->n=0;
@@ -36,16 +36,17 @@ Pos Node()
     return q;
 }
 
-void Put(int x, Pos P)
+void Put(int x, Pos P, int lvl)
 {
     Pos q=Node();
     if(MemoryList(q));
-
     else
     {
         q->n=x;
         q->next=P->next;
         P->next=q;
+        if(lvl!=0)
+            q->cnt=lvl;
     }
 }
 
@@ -97,7 +98,7 @@ void Place (int x, Pos P, int ch)
                     break;
         }
         if(q->next==NULL || x!=q->next->n)
-            Put(x, q);
+            Put(x, q, 0);
         else if(x==q->next->n)
             P->cnt--;
     }
